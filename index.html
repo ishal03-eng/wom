@@ -358,7 +358,7 @@
     }
     footer strong { color: var(--blush); }
 
-    /* ── CONFETTI ── */
+    /* ── RESPONSIVE TWEAKS ── */
     .confetti-piece {
       position: fixed;
       width: 10px; height: 10px;
@@ -373,7 +373,28 @@
       100% { transform: translateY(110vh) rotate(720deg); opacity:0; }
     }
 
-    /* ── RESPONSIVE TWEAKS ── */
+  /* ── NAME TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--deep);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: 2px solid var(--rose);
+    box-shadow: 0 8px 30px rgba(232,83,122,.3);
+    z-index: 9999;
+    transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+    white-space: nowrap;
+    text-align: center;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast strong { color: var(--blush); }
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
       .letter-box { padding: 2rem 1.2rem; }
@@ -387,8 +408,8 @@
 <!-- HERO -->
 <section class="hero">
   <span class="badge">🌸 Happy Women's Day · March 8</span>
-  <h1>You Are <em>Unstoppable,</em> Queen.</h1>
-  <p class="tagline">Strong, brave, and beautifully you — today and every single day. 💕</p>
+  <h1>You Are <em>Unstoppable,</em> <span id="heroName">Palku.</span></h1>
+  <p class="tagline">Yes <strong style="color:var(--rose)">Janu</strong>, this is for YOU — Strong, brave, and beautifully you 💕</p>
   <div class="scroll-hint">
     <span>scroll</span>
     <div class="arrow"></div>
@@ -457,14 +478,15 @@
   <p class="section-label">A Little Note</p>
   <h2 class="section-title">From the Heart 💝</h2>
   <div class="letter-box">
-    <p>Hey <strong>beautiful</strong>,</p>
+    <p>Hey <strong>Palku</strong> 🌸</p>
+    <p>Yes, <strong>Janu</strong> — I know what you're thinking. <em>"This isn't for me."</em> But stop right there. <strong>This is 100% for YOU.</strong> Made for you, thought about you, written for you — my <strong>Queen</strong>. 👑</p>
     <p>I just want you to know — you are an absolutely incredible human being. The way you keep going, even on the hardest days, is something that truly inspires me more than I can express.</p>
-    <p><strong>Stop being so hard on yourself.</strong> You're doing so much better than you think. The stress you're carrying? You don't need to carry all of it. Lay it down for a moment. Breathe. You deserve rest just as much as you deserve success.</p>
-    <p>You are not "almost there" — <strong>you are already there.</strong> Smart, capable, funny, strong, kind — all of that is you, right now, today. Not a future version of you. THIS version.</p>
-    <p>Things might feel uncertain sometimes, but here's what I know for absolute sure: <strong>everything is going to be perfectly okay.</strong> Because you are the kind of girl who figures things out. You always have, and you always will.</p>
-    <p>On this Women's Day, I celebrate you — <strong>all of you.</strong> The girl who laughs, the girl who cries, the girl who doubts, and the girl who rises every single time.</p>
-    <p>I am SO proud of you. 🌸</p>
-    <span class="letter-sign">With all the love in the world 💕</span>
+    <p><strong>Stop being so hard on yourself, Palku.</strong> You're doing so much better than you think. The stress you're carrying? You don't need to carry all of it. Lay it down for a moment. Breathe. You deserve rest just as much as you deserve success.</p>
+    <p>You are not "almost there" — <strong>you are already there, Janu.</strong> Smart, capable, funny, strong, kind — all of that is you, right now, today. Not a future version of you. THIS version of my <strong>beautiful</strong> girl.</p>
+    <p>Things might feel uncertain sometimes, but here's what I know for absolute sure: <strong>everything is going to be perfectly okay.</strong> Because you are the kind of girl who figures things out. You always have, and you always will, my <strong>Queen</strong>.</p>
+    <p>On this Women's Day, I celebrate <strong>Palku</strong> — <strong>all of her.</strong> The girl who laughs, the girl who cries, the girl who doubts, and the girl who rises every single time.</p>
+    <p>I am SO proud of you, <strong>Janu</strong>. 🌸</p>
+    <span class="letter-sign">With all the love in the world 💕<br><small style="font-size:.9rem;opacity:.7">— Yes Queen, this was always for YOU 👑</small></span>
   </div>
 </div>
 
@@ -477,6 +499,9 @@
 <footer>
   Made with <strong>♡</strong> especially for the most amazing girl — <strong>Happy Women's Day!</strong> 🌸
 </footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">💕 Yes <strong>Palku</strong>, this is for YOU, Janu! 👑</div>
 
 <script>
   /* ── FALLING PETALS ── */
@@ -573,6 +598,38 @@
 
   /* ── AUTO CONFETTI ON LOAD ── */
   setTimeout(launchConfetti, 1800);
+
+  /* ── CYCLING NAMES IN HERO ── */
+  const names = ['Palku 💖', 'Janu 🌸', 'Queen 👑', 'Beautiful ✨', 'Palku 💕'];
+  let nameIdx = 0;
+  const heroName = document.getElementById('heroName');
+  setInterval(() => {
+    nameIdx = (nameIdx + 1) % names.length;
+    heroName.style.opacity = '0';
+    heroName.style.transition = 'opacity .4s';
+    setTimeout(() => {
+      heroName.textContent = names[nameIdx];
+      heroName.style.opacity = '1';
+    }, 400);
+  }, 2200);
+
+  /* ── TOAST POPUP ── */
+  const toast = document.getElementById('toast');
+  const toastMessages = [
+    '💕 Yes <strong>Palku</strong>, this is for YOU, Janu! 👑',
+    '🌸 Still think it\'s not for you, <strong>Queen</strong>?',
+    '✨ It\'s for YOU, <strong>Beautiful</strong>. Always was 💖',
+    '👑 <strong>Palku</strong> = the girl this whole page loves!',
+  ];
+  let toastIdx = 0;
+  function showToast() {
+    toast.innerHTML = toastMessages[toastIdx % toastMessages.length];
+    toast.classList.add('show');
+    toastIdx++;
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+  setTimeout(showToast, 3000);
+  setInterval(showToast, 9000);
 </script>
 </body>
 </html>
